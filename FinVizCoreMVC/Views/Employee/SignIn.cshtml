@@ -1,0 +1,78 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+ 
+<div class="container">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ms-auto">
+
+                <p id="error" style="color:red;"></p>
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label>User Name</label>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Email address" id="username" required="required" />
+                    </div>
+                </div>
+                <div class="col-12 password-section" id="" style="margin: 10px 0px !important;">
+                    <label>Password</label>
+
+                    <div class="input-group">
+                        <input type="password" id="password" class="form-control" placeholder="Enter Your Password" />
+                    </div>
+                </div>
+
+
+
+                <button id="loginForm" type="button" class="btn btn-primary float-end">
+                    Login
+                </button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+<link href="https://kendo.cdn.telerik.com/themes/6.2.0/default/default-main.css" rel="stylesheet" />
+<script src="https://kendo.cdn.telerik.com/2023.1.314/js/jquery.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2023.1.314/js/kendo.all.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<srcipt src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></srcipt>
+<script>
+    $(document).ready(function () {
+       
+
+        $('#loginForm').click(function () {
+
+            // debugger;
+
+            // var formdata = new FormData();
+            // formdata.append("Username", $('#username').val())
+            // formdata.append("Password", $('#password').val())
+            
+            $.ajax({
+                url: 'https://localhost:7117/Employee/Login?username=' + $('#username').val() + '&password=' + $('#password').val(),
+                type: 'POST',
+               // data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    debugger;
+
+                    // localStorage.setItem("token", res.token);
+                    localStorage.setItem("token_expiry", res);
+
+                    window.location.href = "/Employee/EmployeeData";
+                },
+                error: function (e) {
+                    console.log(e);
+                    $('#error').text("Invalid username or password.");
+                }
+            });
+        });
+    });
+</script>
